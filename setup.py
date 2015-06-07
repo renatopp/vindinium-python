@@ -2,7 +2,7 @@
 
 __author__ = 'Renato de Pontes Pereira'
 __author_email__ = 'renato.ppontes@gmail.com'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __date__ = '2015 06 07'
 
 try:
@@ -26,7 +26,7 @@ setup(
     author = __author__,
     author_email = __author_email__,
     license='MIT License',
-    description = 'Python module for vindinium.',
+    description = 'Python client for vindinium.',
     long_description=long_description,
     url = 'https://guithub.com/renatopp/vindinium-python/releases',
     download_url = 'https://guithub.com/renatopp/vindinium-python',
@@ -46,7 +46,7 @@ setup(
         ('Topic :: Scientific/Engineering :: Artificial Intelligence'),
     ],
     keywords='vindinium game python',
-    py_modules=['vindinium'],
+    packages=find_packages(),
     package_data={'':['README.rst', 'LICENSE']},
     install_requires=['requests>=2.7.0']
 )
