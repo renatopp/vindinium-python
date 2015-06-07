@@ -57,4 +57,4 @@ or
     url = client.run(vindinium.bots.MinerBot())
     print 'Replay in:', url
 
-Check out the documentation to know more.
+[Check out the documentation to know more](http://pythonhosted.org/vindinium/).
