@@ -114,7 +114,7 @@ class Client(object):
             params = {'key': self.key}
             endpoint = '/api/arena'
         else:
-            params = {'key':self.key, 'turns':self.n_turns, 'map':'m1'}
+            params = {'key':self.key, 'turns':self.n_turns, 'map':'m2'}
             endpoint = '/api/training'
     
         # Connect

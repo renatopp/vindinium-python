@@ -55,8 +55,8 @@ EAST  = 'East'
 STAY  = 'Stay'
 
 # direction
-DIR_NORTH = (-1,  0)
-DIR_SOUTH = ( 1,  0)
-DIR_WEST  = ( 0, -1)
-DIR_EAST  = ( 0,  1)
+DIR_NORTH = ( 0, -1)
+DIR_SOUTH = ( 0,  1)
+DIR_WEST  = (-1,  0)
+DIR_EAST  = ( 1,  0)
 DIR_STAY  = ( 0,  0)

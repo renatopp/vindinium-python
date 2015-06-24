@@ -55,6 +55,8 @@ class Game(object):
         tiles = state['game']['board']['tiles']
         heroes = state['game']['heroes']
         
+        self.turn = state['game']['turn']
+        
         for hero, hero_state in zip(self.heroes, heroes):
             hero.crashed    = hero_state['crashed']
             hero.mine_count = hero_state['mineCount']
@@ -97,3 +99,23 @@ class Game(object):
             pos = hero['spawnPos']
             self.map[pos['y'], pos['x']] = vin.TILE_SPAWN
             self.heroes.append(Hero(hero))
+
+    def __str__(self):
+        '''Pretty map.'''
+        s = ' '
+        s += '-'*(self.map.size) + '\n'
+        for y in xrange(self.map.size):
+            s += '|'
+            for x in xrange(self.map.size):
+                tile = self.map[x, y]
+                hero = [h for h in self.heroes if h.x==x and h.y==y]
+
+                if tile == vin.TILE_WALL: s += '.'
+                elif any(hero): s+= str(hero[0].id)
+                elif tile == vin.TILE_SPAWN: s += 's'
+                elif tile == vin.TILE_MINE: s += 'M'
+                elif tile == vin.TILE_TAVERN: s += 'T'
+                else: s += ' '
+            s += '|\n'
+        s += ' ' + '-'*(self.map.size)
+        return s

@@ -3,38 +3,45 @@ import vindinium as vin
 from vindinium.bots import BaseBot
 from vindinium.ai import AStar
 
-__all__ = ['MinerBot']
+__all__ = ['AggressiveBot']
 
-class MinerBot(BaseBot):
-    '''Miner bot.'''
+class AggressiveBot(BaseBot):
+    '''Aggressive bot.'''
     
     search = None
 
     def start(self):
         self.search = AStar(self.game.map)
+        self.target = None
 
     def move(self):
-        if self.hero.life < 50 and self.hero.gold > 2:
+        print self.hero.life
+        self.target = self._get_best_target()
+        distance = vin.utils.distance_manhattan(self.hero.x, self.hero.y, 
+                                                self.target.x, self.target.y)
+        in_spawn = self.target.x == self.target.spawn_x and self.target.y == self.target.spawn_y
+
+        if self.hero.life <= 40 and self.hero.gold > 2:
             return self._go_to_nearest_tavern()
+
+        elif distance < 5 and not in_spawn:
+            return self._go_to(self.target.x, self.target.y)
+
+        elif self.hero.life <= 60 and self.hero.gold > 2:
+            return self._go_to_nearest_tavern()
+
         else:
-            return self._go_to_nearest_mine()
+            return self._go_to(self.target.x, self.target.y)
 
-    def _go_to_nearest_mine(self):
-        x = self.hero.x
-        y = self.hero.y
+    def _get_best_target(self):
+        target = None
+        for hero in self.game.heroes:
+            if hero.id == self.id: continue
 
-        # Order mines by distance
-        mines = vin.utils.order_by_distance(x, y, self.game.mines)
-        for mine in mines:
+            if target is None or hero.mine_count > target.mine_count:
+                target = hero
 
-            # Grab nearest mine that is not owned by this hero
-            if mine.owner != self.hero.id:
-                command = self._go_to(mine.x, mine.y)
-
-                if command:
-                    return command
-
-        return self._random()
+        return target
 
     def _go_to_nearest_tavern(self):
         x = self.hero.x

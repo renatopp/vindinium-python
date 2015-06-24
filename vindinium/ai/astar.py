@@ -1,5 +1,5 @@
 import vindinium as vin
-from vindinium.ai import HeapQueue
+from vindinium.utils import HeapQueue
 
 __all__ = ['AStar']
 
